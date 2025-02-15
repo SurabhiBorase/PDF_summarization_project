@@ -1,0 +1,5 @@
+Library that i need to run this tool
+
+1. NLTK - pip install nltk
+2. PyMuPDF - pip install PyMuPDF
+
