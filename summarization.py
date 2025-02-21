@@ -1,46 +1,36 @@
-import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords
-from collections import Counter
-import string
+from transformers import pipeline
 
-# Ensure required NLTK resources are available
-nltk.download('punkt')
-nltk.download('stopwords')
+# Load the pre-trained BART model for summarization
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-def extractive_summarization(text, num_sentences=2):
-    if not text.strip():
-        return "Error: No text provided for summarization."
+def summarize_text(text, max_length=150, min_length=50):
+    """
+    Generates an abstractive summary using BART.
 
-    # Tokenize sentences
-    sentences = sent_tokenize(text)
+    Parameters:
+    - text (str): The input text to summarize.
+    - max_length (int): Maximum length of the summary.
+    - min_length (int): Minimum length of the summary.
 
-    if num_sentences >= len(sentences):
-        return "Error: The text is too short for summarization."
+    Returns:
+    - str: The summarized text.
+    """
+    if len(text.split()) < min_length:
+        return "Input text is too short for summarization."
 
-    # Tokenize words and remove stopwords
-    stop_words = set(stopwords.words("english"))
-    words = [word.lower() for word in word_tokenize(text) if word.lower() not in stop_words and word not in string.punctuation]
+    summary = summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
+    return summary[0]['summary_text']
 
-    # Compute word frequency
-    word_frequencies = Counter(words)
-
-    # Score sentences based on word frequencies
-    sentence_scores = {sentence: sum(word_frequencies[word.lower()] for word in word_tokenize(sentence) if word.lower() in word_frequencies) for sentence in sentences}
-
-    # Select top sentences
-    summarized_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)[:num_sentences]
-
-    return " ".join(summarized_sentences)
-
-# Get user input
-text = input("Enter the text you want to summarize:\n")
-try:
-    num_sentences = int(input("Enter the number of sentences for the summary:\n"))
-except ValueError:
-    print("Error: Please enter a valid number.")
-    exit()
-
-# Summarize the text
-summary = extractive_summarization(text, num_sentences)
-print("\nSummary:", summary)
+# 🛠️ TEST BLOCK
+if __name__ == "__main__":
+    test_text = """
+    The advancements in artificial intelligence have revolutionized multiple industries. 
+    AI models are now capable of performing complex tasks such as medical diagnosis, 
+    financial forecasting, and even creative writing. Companies are investing heavily in 
+    AI research to enhance automation and efficiency. However, ethical concerns regarding 
+    AI biases and job displacement continue to be widely discussed.
+    """
+    
+    print("\n📝 Original Text:\n", test_text)
+    summary = summarize_text(test_text)
+    print("\n📌 Generated Summary:\n", summary)

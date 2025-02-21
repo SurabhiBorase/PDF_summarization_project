@@ -1,19 +1,62 @@
-<!-- templates/index.html -->
+<!-- Home Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Summarization Tool</title>
+    <title>AI-Powered PDF Summarization</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Upload a PDF File</h1>
-        <form action="/summarize" method="post" enctype="multipart/form-data">
-            <input type="file" name="pdf_file" accept=".pdf" required>
-            <button type="submit">Summarize</button>
-        </form>
-    </div>
+    <header>
+        <div class="nav-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="logo">
+            <nav>
+                <a href="#about">About</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="/upload" class="cta-button">Get Started</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>AI-Powered PDF Summarization</h1>
+        <p>Upload your PDF and generate an AI-driven summary instantly.</p>
+        <a href="/upload" class="cta-button">Get Started</a>
+    </section>
+    
+    <section id="about" class="about-section">
+        <div class="content">
+            <h2>About This Tool</h2>
+            <p>
+                This AI-powered PDF summarization tool is designed to help users quickly extract key insights from lengthy documents.
+                By leveraging <b>Natural Language Processing (NLP)</b> techniques, it efficiently processes PDFs and generates concise, meaningful summaries.
+            </p>
+            <p>
+                Whether you're a researcher, business professional, or student, this tool enables you to <b>save time</b> and 
+                <b>enhance productivity</b> by providing a fast and accurate way to review large documents. Simply upload your PDF and let AI do the rest!
+            </p>
+        </div>
+        <img src="{{ url_for('static', filename='about-us.jpg') }}" alt="About Us" class="about-image">
+    </section>
+    
+    <section id="how-it-works" class="how-it-works-section">
+        <h2>How It Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <h3>1. Upload Your PDF</h3>
+                <p>Select and upload any PDF document that you want to summarize.</p>
+            </div>
+            <div class="step">
+                <h3>2. AI Extracts & Processes Text</h3>
+                <p>The tool extracts text from your PDF and removes any unnecessary formatting.</p>
+            </div>
+            <div class="step">
+                <h3>3. Get Your Summary</h3>
+                <p>Our AI model generates a concise summary, highlighting key points.</p>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
+

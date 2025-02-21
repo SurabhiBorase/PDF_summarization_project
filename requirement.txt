@@ -1,0 +1,16 @@
+
+Flask==3.1.0
+Jinja2==3.1.4
+PyPDF2==3.0.1
+nltk==3.9.1
+transformers==4.49.0
+sentencepiece==0.2.0
+torch==2.2.2
+safetensors==0.5.2
+requests==2.32.3
+filelock==3.13.1
+certifi==2025.1.31
+urllib3==2.3.0
+tqdm==4.67.1
+
+

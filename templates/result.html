@@ -1,19 +1,44 @@
-<!-- templates/result.html -->
+<!-- Result Page (result.html) - Inspired by Optimas.ai -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary Result</title>
+    <title>Summary Result - AI Summarization</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Extracted Text</h1>
-        <p>{{ extracted_text }}</p>
-        <h1>Summary</h1>
-        <p>{{ summary }}</p>
-        <a href="/">Upload Another PDF</a>
-    </div>
+    <header>
+        <div class="nav-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="logo">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/upload">Upload Another File</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- result.html -->
+<section class="result-section">
+    <h1>Summary Result</h1>
+    
+    {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% else %}
+        <div class="result-container">
+            <div class="extracted-text">
+                <h2>Extracted Text</h2>
+                <p>{{ extracted_text }}</p>
+            </div>
+            <div class="summary-text">
+                <h2>AI-Generated Summary</h2>
+                <p>{{ summary }}</p>
+            </div>
+        </div>
+    {% endif %}
+    
+    <a href="/upload" class="cta-button">Upload Another File</a>
+</section>
+
 </body>
 </html>
