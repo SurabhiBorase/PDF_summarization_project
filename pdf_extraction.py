@@ -10,6 +10,15 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 def extract_text_from_pdf(pdf_path):
+    """
+    Extracts text from a given PDF file.
+
+    Parameters:
+    - pdf_path (str): Path to the PDF file.
+
+    Returns:
+    - str: Cleaned extracted text from the PDF.
+    """
     try:
         with open(pdf_path, "rb") as file:
             reader = PyPDF2.PdfReader(file)
@@ -24,6 +33,16 @@ def extract_text_from_pdf(pdf_path):
         return None
 
 def extractive_summarization(text, num_sentences=3):
+    """
+    Generates an extractive summary from the input text.
+
+    Parameters:
+    - text (str): The input text to summarize.
+    - num_sentences (int): Number of sentences to include in the summary.
+
+    Returns:
+    - str: Extractive summary.
+    """
     sentences = sent_tokenize(text)
     
     # Preprocess text (remove broken words, extra spaces)
@@ -37,7 +56,7 @@ def extractive_summarization(text, num_sentences=3):
     sentence_scores = {}
     for i, sentence in enumerate(clean_sentences):
         sentence_scores[sentence] = sum(word_freq[word.lower()] for word in sentence.split())
-        
+
         # Give higher importance to first & last sentences
         if i == 0 or i == len(sentences) - 1:
             sentence_scores[sentence] *= 1.2  
@@ -47,22 +66,16 @@ def extractive_summarization(text, num_sentences=3):
 
     return " ".join(top_sentences)
 
-
 def clean_summary(summary):
-    """Remove extra spaces, fix spacing issues, and clean the summary output."""
+    """
+    Cleans the summary text by removing extra spaces and formatting issues.
+
+    Parameters:
+    - summary (str): The summary text to clean.
+
+    Returns:
+    - str: Cleaned summary.
+    """
     summary = re.sub(r'\s+', ' ', summary)  # Remove extra spaces and newlines
     summary = summary.strip()
     return summary
-
-# Main Execution
-pdf_path = input("Enter the path to the PDF file: ").strip().strip("'\"")
-num_sentences = int(input("Enter the number of sentences for the summary: ").strip())
-
-extracted_text = extract_text_from_pdf(pdf_path)
-
-if extracted_text:
-    print("\nExtracted Text:\n", extracted_text)
-    summary = extractive_summarization(extracted_text, num_sentences)
-    print("\nCleaned Summary:\n", summary)
-else:
-    print("Failed to extract text from the PDF.")

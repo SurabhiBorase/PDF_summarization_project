@@ -1,0 +1,35 @@
+<!-- Upload Page  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF - AI Summarization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="logo">
+            <nav>
+                <a href="/">Home</a>
+                <a href="#help">Help</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="upload-section">
+        <h1>Upload Your PDF</h1>
+        <p>Select a file to summarize using our AI-powered tool.</p>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+
+            <div class="file-upload">
+                <input type="file" name="file" accept="application/pdf" required>
+            </div>
+            <button type="submit" class="cta-button">Summarize</button>
+        </form>
+    </section>
+    <p id="loading-message" style="display: none; color: red;">Processing... Please wait.</p>
+
+</body>
+</html>

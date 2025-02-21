@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="logo">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/upload">Upload Another PDF</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="summary-section">
+        <h1>Summarization Result</h1>
+        <p>Below is the generated summary:</p>
+        <div class="summary-box">
+            <p>{{ summary }}</p>
+        </div>
+        <a href="/" class="cta-button">Go Back to Home</a>
+    </section>
+</body>
+</html>
